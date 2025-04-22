@@ -1,7 +1,8 @@
 import { Socket, Server as SocketIOServer } from "socket.io";
+import type { Server as HTTPServer } from "http";
 import Redis from "ioredis";
 
-export function setupSocketServer(server: any) {
+export function setupSocketServer(server: HTTPServer) {
   const io = new SocketIOServer(server, {
     cors: {
       origin: "*",
