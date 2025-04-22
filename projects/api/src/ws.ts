@@ -11,7 +11,7 @@ export function setupSocketServer(server: HTTPServer) {
 
   const redisSubscriber = new Redis({ host: "redis", port: 6379 });
 
-  redisSubscriber.subscribe("status-updates", (err, count) => {
+  redisSubscriber.subscribe("status-updates", (err: Error | null, count: number) => {
     if (err) {
       console.error("Redis subscription failed:", err);
     } else {
@@ -19,7 +19,7 @@ export function setupSocketServer(server: HTTPServer) {
     }
   });
 
-  redisSubscriber.on("message", (channel, message) => {
+  redisSubscriber.on("message", (channel: string, message: string) => {
     if (channel === "status-updates") {
       try {
         const parsed = JSON.parse(message);
